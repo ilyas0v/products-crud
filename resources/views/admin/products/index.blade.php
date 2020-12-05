@@ -24,6 +24,7 @@
                                                 <th>ID</th>
                                                 <th>Image</th>
                                                 <th>Name</th>
+                                                <th>Category</th>
                                                 <th>Price</th>
                                                 <th>Discount</th>
                                                 <th>Weight</th>
@@ -38,6 +39,7 @@
                                                     <td>{{ $product->id }}</td>
                                                     <td><img src="/storage/products/{{ $product->image }}" width="100"></td>
                                                     <td>{{ $product->name }}</td>
+                                                    <td>{{ $product->category ? $product->category->name : '---' }}</td>
                                                     <td>{{ $product->price }}</td>
                                                     <td>{{ $product->discount_percent }}</td>
                                                     <td>{{ $product->weight }}</td>

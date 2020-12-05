@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Product;
+use App\ProductCategory;
 
 class ProductController extends Controller
 {
@@ -29,7 +30,10 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('admin.products.create');
+
+        $categories = ProductCategory::all();
+
+        return view('admin.products.create', compact('categories'));
     }
 
     /**
@@ -54,6 +58,8 @@ class ProductController extends Controller
             'shipping_cost'      => 'required|numeric',
             'status'             => 'required|boolean',
             'image'              => 'required|image|mimes:png,jpeg,jpg,gif,svg|max:5000',
+
+            'category_id'        => 'required|integer|exists:product_categories,id',
         ]);
 
         $product          = new Product();
@@ -68,6 +74,8 @@ class ProductController extends Controller
         $product->shipping_days        = $request->shipping_days;
         $product->shipping_cost        = $request->shipping_cost;
         $product->status               = $request->status;
+
+        $product->category_id          = $request->category_id;
 
         if(!empty($request->previous_price) && !empty($request->price))
         {
@@ -117,9 +125,10 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $product = Product::findOrFail($id);
+        $product    = Product::findOrFail($id);
+        $categories = ProductCategory::all();
 
-        return view('admin.products.edit', compact('product'));
+        return view('admin.products.edit', compact('product', 'categories'));
     }
 
     /**
@@ -146,6 +155,8 @@ class ProductController extends Controller
             'shipping_cost'      => 'required|numeric',
             'status'             => 'required|boolean',
             'image'              => 'nullable|image|mimes:png,jpeg,jpg,gif,svg|max:5000',
+
+            'category_id'        => 'required|integer|exists:product_categories,id',
         ]);
 
         $product = Product::findOrFail($id);
@@ -160,6 +171,8 @@ class ProductController extends Controller
         $product->shipping_days        = $request->shipping_days;
         $product->shipping_cost        = $request->shipping_cost;
         $product->status               = $request->status;
+
+        $product->category_id          = $request->category_id;
 
         if(!empty($request->previous_price) && !empty($request->price))
         {

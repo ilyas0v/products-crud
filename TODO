@@ -18,7 +18,8 @@ Products table:
 Product categories
 * id
 * name
-
+* image
+* status
 
 Product images
 * id 

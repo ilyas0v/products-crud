@@ -23,11 +23,42 @@
                                     <div class="card-header">
                                         <b>Edit product</b>
                                     </div>
+
+
+
+                                    @if($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach($errors->all() as $err)
+                                                <li>{{ $err }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                    @endif
+
+
+
+                                    
                                     <div class="card-body card-block">
                                         <form action="{{ route('products.update', $product->id) }}" method="post" enctype="multipart/form-data" class="form-horizontal">
 
                                             @csrf
                                             @method('PUT')
+
+
+                                            <div class="row form-group">
+                                                <div class="col col-md-3">
+                                                    <label for="text-input" class=" form-control-label">Category</label>
+                                                </div>
+                                                <div class="col-12 col-md-9">
+                                                    <select name="category_id" id="" class="form-control">
+                                                        @foreach($categories as $category)
+                                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+
 
                                             <div class="row form-group">
                                                 <div class="col col-md-3">

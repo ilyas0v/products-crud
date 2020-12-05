@@ -25,10 +25,11 @@ Route::post('/admin/logout',                'Auth\LoginController@logout')->name
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
 
-    Route::get('/',                        'DashboardController@index')->name('dashboard');
-    Route::resource('/products',           'ProductController');
+    Route::get('/',                                  'DashboardController@index')->name('dashboard');
+    Route::resource('/products',                     'ProductController');
+    Route::resource('/product_categories',           'ProductCategoryController');
 });
 
 
 
-Route::get('/',                             'PageController@index');
+Route::get('/',                             'PageController@index')->name('home');
